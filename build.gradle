@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.4'
+	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
 }
@@ -22,10 +22,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.javamoney:moneta:1.4.2'
-	implementation 'junit:junit:5.9.1'
 	implementation 'com.vladmihalcea:hibernate-types-55:2.20.0'
 	implementation 'org.jadira.usertype:usertype.core:7.0.0.CR1'
-	implementation 'com.jadira:hibernate-types-55:2.19.2'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -1,0 +1,15 @@
+spring:
+jpa:
+  hibernate:
+    ddl-auto: create
+    use-new-id-generator-mappings: true
+  properties:
+    hibernate:
+      order_inserts: true
+      dialect: org.hibernate.dialect.PostgreSQL95Dialect
+      temp:
+        use_jdbc_metadata_defaults: false
+      jdbc:
+        batch_size: 50
+        time_zone: UTC
+  open-in-view: false

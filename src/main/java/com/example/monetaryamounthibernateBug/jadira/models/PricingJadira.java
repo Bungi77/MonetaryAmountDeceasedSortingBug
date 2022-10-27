@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
-import org.jadira.usertype.moneyandcurrency.moneta.*;
-
 import javax.money.MonetaryAmount;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,4 +21,17 @@ public class PricingJadira {
     @Columns(columns = { @Column(name = "MY_CURRENCY"), @Column(name = "MY_AMOUNT") })
     @Type(type = "org.jadira.usertype.moneyandcurrency.moneta.PersistentMoneyAmountAndCurrency")
     private MonetaryAmount price;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof PricingJadira pricingJadira) {
+            return pricingJadira.getPrice().isEqualTo(price);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return 2;
+    }
 }

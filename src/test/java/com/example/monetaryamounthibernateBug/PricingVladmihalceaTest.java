@@ -28,62 +28,50 @@ class PricingVladmihalceaTest {
     @Autowired
     private ProductJadiraRepository jadiraRepository;
 
-    private List<MonetaryAmount> sortedDeceased;
-
     @Test
     void testSortingVladmihalceaDeceased(){
-        createVladmihalceaTestData();
-        createSolutionForSortedDeceased();
-
         var vladmihalceaService = new PriceVladmihalceaService(vladmihalceaRepository);
-        var vladmihalceaRes = new ArrayList<MonetaryAmount>();
+        var sortedDeceased = createVladmihalceaTestData();
 
         Iterable<PricingVladmihalcea> pricingsVladmihalcea = vladmihalceaService.sortedWithMonetaryAmountFieldProductPricingList();
-        pricingsVladmihalcea.forEach(e-> vladmihalceaRes.add(e.getPrice()));
 
-        assertThat(vladmihalceaRes.equals(sortedDeceased)).isTrue();
+        assertThat(pricingsVladmihalcea).containsExactly(sortedDeceased);
     }
 
     @Test
     void testSortingJadiraDeceased(){
-        createSolutionForSortedDeceased();
-        createJadiraTestData();
-
         var jadiraService = new PriceJadiraService(jadiraRepository);
-        var jadiraRes = new ArrayList<MonetaryAmount>();
+        var sortedDeceased = createJadiraTestData();
 
         Iterable<PricingJadira> pricingsJadira = jadiraService.sortedWithMonetaryAmountFieldProductPricingList();
-        pricingsJadira.forEach(e-> jadiraRes.add(e.getPrice()));
 
-        assertThat(jadiraRes.equals(sortedDeceased)).isTrue();
+        assertThat(pricingsJadira).containsExactly(sortedDeceased);
     }
 
-    private void createVladmihalceaTestData(){
-        PricingVladmihalcea firstV = new PricingVladmihalcea(1L, Money.of(new BigDecimal("12.7"), "EUR"));
-        PricingVladmihalcea secondV = new PricingVladmihalcea(2L, Money.of(new BigDecimal("30.2"), "EUR"));
-        PricingVladmihalcea thirdV = new PricingVladmihalcea(3L, Money.of(new BigDecimal("29.6"), "EUR"));
-        entityManager.persist(firstV);
-        entityManager.flush();
-        entityManager.persist(secondV);
-        entityManager.flush();
-        entityManager.persist(thirdV);
+    private PricingVladmihalcea[] createVladmihalceaTestData(){
+        List<PricingVladmihalcea> pricings = new ArrayList<>();
+        PricingVladmihalcea first = new PricingVladmihalcea(1L, Money.of(new BigDecimal("12.7"), "EUR"));
+        PricingVladmihalcea second = new PricingVladmihalcea(2L, Money.of(new BigDecimal("30.2"), "EUR"));
+        PricingVladmihalcea third = new PricingVladmihalcea(3L, Money.of(new BigDecimal("29.6"), "EUR"));
+        pricings.add(first);
+        pricings.add(second);
+        pricings.add(third);
+        pricings.forEach(e-> entityManager.persistAndFlush(e));
+        PricingVladmihalcea[] sortedDeceased = {pricings.get(1), pricings.get(2), pricings.get(0)};
+        return sortedDeceased;
+
     }
 
-    private void createJadiraTestData(){
-        PricingJadira firstJ = new PricingJadira(1L, Money.of(new BigDecimal("12.7"), "EUR"));
-        PricingJadira secondJ = new PricingJadira(2L, Money.of(new BigDecimal("30.2"), "EUR"));
-        PricingJadira thirdJ = new PricingJadira(3L, Money.of(new BigDecimal("29.6"), "EUR"));
-        entityManager.persist(firstJ);
-        entityManager.flush();
-        entityManager.persist(secondJ);
-        entityManager.flush();
-        entityManager.persist(thirdJ);
-    }
-
-    private void createSolutionForSortedDeceased(){
-        sortedDeceased = new ArrayList<>();
-        sortedDeceased.add(Money.of(new BigDecimal("30.2"), "EUR"));
-        sortedDeceased.add(Money.of(new BigDecimal("29.6"), "EUR"));
-        sortedDeceased.add(Money.of(new BigDecimal("12.7"), "EUR"));
+    private PricingJadira[] createJadiraTestData(){
+        List<PricingJadira> pricings = new ArrayList<>();
+        PricingJadira first = new PricingJadira(1L, Money.of(new BigDecimal("12.7"), "EUR"));
+        PricingJadira second = new PricingJadira(2L, Money.of(new BigDecimal("30.2"), "EUR"));
+        PricingJadira third = new PricingJadira(3L, Money.of(new BigDecimal("29.6"), "EUR"));
+        pricings.add(first);
+        pricings.add(second);
+        pricings.add(third);
+        pricings.forEach(e-> entityManager.persistAndFlush(e));
+        PricingJadira[] sortedDeceased = {pricings.get(1), pricings.get(2), pricings.get(0)};
+        return sortedDeceased;
     }
 }

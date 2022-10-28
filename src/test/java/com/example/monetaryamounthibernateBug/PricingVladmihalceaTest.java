@@ -29,23 +29,23 @@ class PricingVladmihalceaTest {
     private ProductJadiraRepository jadiraRepository;
 
     @Test
-    void testSortingVladmihalceaDeceased(){
+    void testSortingVladmihalceaDescending(){
         var vladmihalceaService = new PriceVladmihalceaService(vladmihalceaRepository);
-        var sortedDeceased = createVladmihalceaTestData();
+        var sortedDescending = createVladmihalceaTestData();
 
         Iterable<PricingVladmihalcea> pricingsVladmihalcea = vladmihalceaService.sortedWithMonetaryAmountFieldProductPricingList();
 
-        assertThat(pricingsVladmihalcea).containsExactly(sortedDeceased);
+        assertThat(pricingsVladmihalcea).containsExactly(sortedDescending);
     }
 
     @Test
-    void testSortingJadiraDeceased(){
+    void testSortingJadiraDescending(){
         var jadiraService = new PriceJadiraService(jadiraRepository);
-        var sortedDeceased = createJadiraTestData();
+        var sortedDescending = createJadiraTestData();
 
         Iterable<PricingJadira> pricingsJadira = jadiraService.sortedWithMonetaryAmountFieldProductPricingList();
 
-        assertThat(pricingsJadira).containsExactly(sortedDeceased);
+        assertThat(pricingsJadira).containsExactly(sortedDescending);
     }
 
     private PricingVladmihalcea[] createVladmihalceaTestData(){
@@ -57,8 +57,8 @@ class PricingVladmihalceaTest {
         pricings.add(second);
         pricings.add(third);
         pricings.forEach(e-> entityManager.persistAndFlush(e));
-        PricingVladmihalcea[] sortedDeceased = {pricings.get(1), pricings.get(2), pricings.get(0)};
-        return sortedDeceased;
+        PricingVladmihalcea[] sortedDescending = {pricings.get(1), pricings.get(2), pricings.get(0)};
+        return sortedDescending;
 
     }
 
@@ -71,7 +71,7 @@ class PricingVladmihalceaTest {
         pricings.add(second);
         pricings.add(third);
         pricings.forEach(e-> entityManager.persistAndFlush(e));
-        PricingJadira[] sortedDeceased = {pricings.get(1), pricings.get(2), pricings.get(0)};
-        return sortedDeceased;
+        PricingJadira[] sortedDescending = {pricings.get(1), pricings.get(2), pricings.get(0)};
+        return sortedDescending;
     }
 }

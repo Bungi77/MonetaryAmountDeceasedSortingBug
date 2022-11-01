@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +56,7 @@ class PricingVladmihalceaTest {
         pricings.add(second);
         pricings.add(third);
         pricings.forEach(e-> entityManager.persistAndFlush(e));
-        PricingVladmihalcea[] sortedDescending = {pricings.get(1), pricings.get(2), pricings.get(0)};
-        return sortedDescending;
+        return new PricingVladmihalcea[] {pricings.get(1), pricings.get(2), pricings.get(0)};
 
     }
 
@@ -71,7 +69,6 @@ class PricingVladmihalceaTest {
         pricings.add(second);
         pricings.add(third);
         pricings.forEach(e-> entityManager.persistAndFlush(e));
-        PricingJadira[] sortedDescending = {pricings.get(1), pricings.get(2), pricings.get(0)};
-        return sortedDescending;
+        return new PricingJadira[] {pricings.get(1), pricings.get(2), pricings.get(0)};
     }
 }
